@@ -39,7 +39,7 @@
 
 Name:    libcircle
 Version: %{maj_ver}.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: BSD
 URL: http://hpc.github.io/libcircle/
@@ -72,6 +72,7 @@ libcircle compiled with Open MPI
 %if (0%{?suse_version} >= 1500)
 %package -n libcircle2-openmpi3
 Summary: Light-weight Group Library for MPI process groups -- Shared libraries
+Obsoletes: libcircle2
 
 %description -n libcircle2-openmpi3
 Shared libraries for %{name}-openmpi3.
@@ -107,6 +108,7 @@ libcircle compiled with MPICH
 %if (0%{?suse_version} >= 1500)
 %package -n libcircle2-mpich
 Summary: Light-weight Group Library for MPI process groups -- Shared libraries
+Obsoletes: libcircle2
 
 %description -n libcircle2-mpich
 Shared libraries for %{name}-mpich.
@@ -193,6 +195,10 @@ done
 %endif
 
 %changelog
+* Tue Sep 29 2020 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-3
+- Obsoletes libcircle2 on SUSE since they package their own older
+  version built with just openmpi2
+
 * Tue Sep 29 2020 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-2
 - Package for multiple MPI stacks and multiple distros
 
