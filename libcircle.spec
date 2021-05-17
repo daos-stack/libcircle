@@ -1,6 +1,11 @@
 %global with_mpich 1
+%if (0%{?rhel} >= 8)
+%global with_openmpi 1
+%global with_openmpi3 0
+%else
 %global with_openmpi 0
 %global with_openmpi3 1
+%endif
 
 %if (0%{?suse_version} >= 1500)
 %global module_load() if [ "%{1}" == "openmpi3" ]; then MODULEPATH=/usr/share/modules module load gnu-openmpi; else MODULEPATH=/usr/share/modules module load gnu-%{1}; fi
@@ -39,7 +44,7 @@
 
 Name:    libcircle
 Version: %{maj_ver}.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD
 URL: http://hpc.github.io/libcircle/
@@ -57,6 +62,30 @@ BuildRequires:  graphviz
 %description
 A simple interface for processing workloads using an automatically
 distributed global queue.
+
+%if %{with_openmpi}
+%package openmpi
+Summary:        Libcircle Open MPI libraries
+BuildRequires:  openmpi-devel
+
+%description openmpi
+A simple interface for processing workloads using an automatically
+distributed global queue.
+
+libcircle compiled with Open MPI
+
+
+%package openmpi-devel
+Summary:    Development headers and libraries for Open MPI libcircle
+Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
+
+%description openmpi-devel
+A simple interface for processing workloads using an automatically
+distributed global queue.
+
+This package contains development headers and libraries for Open
+MPI ibcircle
+%endif
 
 %if %{with_openmpi3}
 %package openmpi3
@@ -151,6 +180,7 @@ for mpi in %{?mpi_list}; do
   %module_load $mpi
   %make_install -C $mpi
   rm %{buildroot}/%{mpi_libdir}/$mpi/%{mpi_lib_ext}/*.la
+  module purge
 done
 
 %check
@@ -162,7 +192,20 @@ for mpi in %{?mpi_list}; do
     exit 1
   fi
   rm %{buildroot}/%{mpi_libdir}/$mpi/%{mpi_lib_ext}/*.la
+  module purge
 done
+
+%if %{with_openmpi}
+%files openmpi
+%license COPYING
+%doc AUTHORS
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/%{name}.so.*
+
+%files openmpi-devel
+%{mpi_includedir}/openmpi%{mpi_include_ext}/%{name}.h
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/%{name}.so
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/pkgconfig/%{name}.pc
+%endif
 
 %if %{with_openmpi3}
 %files openmpi3
@@ -195,6 +238,9 @@ done
 %endif
 
 %changelog
+* Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-4
+- Package for openmpi on EL8
+
 * Tue Sep 29 2020 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-3
 - Obsoletes libcircle2 on SUSE since they package their own older
   version built with just openmpi2
