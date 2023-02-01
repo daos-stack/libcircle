@@ -44,7 +44,7 @@
 
 Name:    libcircle
 Version: %{maj_ver}.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD
 URL: http://hpc.github.io/libcircle/
@@ -67,6 +67,9 @@ distributed global queue.
 %package openmpi
 Summary:        Libcircle Open MPI libraries
 BuildRequires:  openmpi-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description openmpi
 A simple interface for processing workloads using an automatically
@@ -127,6 +130,9 @@ MPI ibcircle
 %package mpich
 Summary:        Libcircle MPICH libraries
 BuildRequires:  mpich-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description mpich
 A simple interface for processing workloads using an automatically
@@ -238,6 +244,9 @@ done
 %endif
 
 %changelog
+* Wed Feb  1 2023 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-5
+- Set base MPI packages to noarch on SUSE 
+
 * Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-4
 - Package for openmpi on EL8
 

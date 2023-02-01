@@ -1,0 +1,4 @@
+# This line is mandatory to access the configuration functions
+from Config import *
+
+addFilter(r'libcircle-(openmpi|mpich)\.x86_64: E: shlib-policy-missing-lib')
