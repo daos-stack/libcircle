@@ -1,0 +1,6 @@
+# This line is mandatory to access the configuration functions
+from Config import *
+
+addFilter('libcircle-openmpi3\.noarch: E: shlib-policy-missing-lib')
+
+addFilter('libcircle\.spec:175: W: configure-without-libdir-spec')
