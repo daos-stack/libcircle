@@ -1,0 +1,32 @@
+Source: libcircle
+Maintainer: DAOS <daos@daos.io>
+Uploaders: Brian J. Murrell <brian.murrell@intel.com>
+Section: devel
+Priority: optional
+Build-Depends: debhelper-compat (= 12),
+               check,
+               doxygen,
+               graphviz,
+               libmpich-dev
+Standards-Version: 4.4.1.0
+Vcs-Browser: https://github.com/hpc/libcircle
+Vcs-Git: https://github.com/hpc/libcircle
+Homepage: http://hpc.github.io/libcircle/
+
+Package: libcircle2-mpich
+Architecture: linux-any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: A simple interface for processing workloads using an automatically
+ distributed global queue.
+ .
+ This package contains the shared libraries for use with MPICH2.
+
+Package: libcircle-mpich-dev
+Section: libdevel
+Architecture: linux-any
+Depends: libcircle2-mpich (= ${binary:Version}), ${misc:Depends}
+Description: A simple interface for processing workloads using an automatically
+ distributed global queue.
+ .
+ This package is needed to compile programs against libcircle2-mpich.
+ It contains the header files and links needed for compiling.

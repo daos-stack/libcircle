@@ -1,0 +1,5 @@
+libcircle (0.3.0-4) focal; urgency=medium
+
+  * Initial packaging
+
+ -- Brian J. Murrell <brian.murrell@intel.com>  Mon, 30 Jan 2023 14:10:58 -0500
