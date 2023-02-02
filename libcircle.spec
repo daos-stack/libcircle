@@ -94,6 +94,9 @@ MPI ibcircle
 %package openmpi3
 Summary:        Libcircle Open MPI libraries
 BuildRequires:  openmpi3-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description openmpi3
 A simple interface for processing workloads using an automatically
