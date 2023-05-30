@@ -38,7 +38,7 @@
  */
 // To use a test branch (i.e. PR) until it lands to master
 // I.e. for testing library changes
-//@Library(value="pipeline-lib@your_branch") _
+@Library(value="pipeline-lib@bmurrell/el9") _
 
-packageBuildingPipeline(['distros' : ['centos7', 'el8', 'leap15', 'ubuntu20.04']])
+packageBuildingPipeline(['distros' : ['centos7', 'el8', 'el9', 'leap15', 'ubuntu20.04']])
 
