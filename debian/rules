@@ -1,0 +1,16 @@
+#! /usr/bin/make -f
+
+export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	CC=mpicc.mpich dh_auto_configure -- --enable-doxygen --enable-tests --disable-static
+
+override_dh_auto_install-arch:
+	dh_auto_install
+	chrpath -d debian/tmp/usr/lib/*/*.so*
+	rm -f debian/tmp/usr/lib/*/*.la

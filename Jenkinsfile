@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-/* Copyright (C) 2020 Intel Corporation
+/* Copyright (C) 2020-2023 Intel Corporation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@
  */
 // To use a test branch (i.e. PR) until it lands to master
 // I.e. for testing library changes
-//@Library(value="pipeline-lib@your_branch") _
+@Library(value="pipeline-lib@bmurrell/el9") _
 
-packageBuildingPipeline(['distros' : ['centos7', 'centos8', 'leap15']])
+packageBuildingPipeline(['distros' : ['centos7', 'el8', 'el9', 'leap15', 'ubuntu20.04']])
+
