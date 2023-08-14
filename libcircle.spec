@@ -44,7 +44,7 @@
 
 Name:    libcircle
 Version: %{maj_ver}.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD
 URL: http://hpc.github.io/libcircle/
@@ -67,6 +67,9 @@ distributed global queue.
 %package openmpi
 Summary:        Libcircle Open MPI libraries
 BuildRequires:  openmpi-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description openmpi
 A simple interface for processing workloads using an automatically
@@ -91,6 +94,9 @@ MPI ibcircle
 %package openmpi3
 Summary:        Libcircle Open MPI libraries
 BuildRequires:  openmpi3-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description openmpi3
 A simple interface for processing workloads using an automatically
@@ -101,7 +107,7 @@ libcircle compiled with Open MPI
 %if (0%{?suse_version} >= 1500)
 %package -n libcircle2-openmpi3
 Summary: Light-weight Group Library for MPI process groups -- Shared libraries
-Obsoletes: libcircle2
+Obsoletes: libcircle2 < %{version}
 
 %description -n libcircle2-openmpi3
 Shared libraries for %{name}-openmpi3.
@@ -127,6 +133,9 @@ MPI ibcircle
 %package mpich
 Summary:        Libcircle MPICH libraries
 BuildRequires:  mpich-devel
+%if (0%{?suse_version} >= 1500)
+BuildArch: noarch
+%endif
 
 %description mpich
 A simple interface for processing workloads using an automatically
@@ -137,7 +146,7 @@ libcircle compiled with MPICH
 %if (0%{?suse_version} >= 1500)
 %package -n libcircle2-mpich
 Summary: Light-weight Group Library for MPI process groups -- Shared libraries
-Obsoletes: libcircle2
+Obsoletes: libcircle2 < %{version}
 
 %description -n libcircle2-mpich
 Shared libraries for %{name}-mpich.
@@ -238,6 +247,9 @@ done
 %endif
 
 %changelog
+* Tue Jul 04 2023 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-5
+- Set base MPI packages to noarch on SUSE 
+
 * Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 0.3.0-4
 - Package for openmpi on EL8
 
